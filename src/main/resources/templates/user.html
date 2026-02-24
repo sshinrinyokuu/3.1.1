@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Users</title>
+
+  <style>
+    body {
+      background-color: #0f0f0f;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+    }
+
+    table {
+      width: 80%;
+      margin: 40px auto;
+      border-collapse: collapse;
+      background-color: #1a1a1a;
+    }
+
+    th, td {
+      border: 1px solid #333;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #222;
+    }
+
+    input {
+      background-color: #111;
+      color: white;
+      border: 1px solid #444;
+      padding: 5px;
+    }
+
+    button {
+      background-color: #ffffff;
+      color: #000000;
+      border: none;
+      padding: 6px 12px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #bbbbbb;
+    }
+
+    .form-container {
+      width: 80%;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #1a1a1a;
+    }
+
+    h2 {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Users</h2>
+
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Last Name</th>
+    <th>Nationality</th>
+    <th>Actions</th>
+  </tr>
+
+  <tr th:each="user : ${listUser}">
+    <td th:text="${user.id}"></td>
+    <td th:text="${user.name}"></td>
+    <td th:text="${user.lastName}"></td>
+    <td th:text="${user.nationality}"></td>
+
+    <td>
+
+      <form th:action="@{/delete}" method="post" style="display:inline;">
+        <input type="hidden" name="id" th:value="${user.id}">
+        <button type="submit">Delete</button>
+      </form>
+    </td>
+  </tr>
+</table>
+
+
+<div class="form-container">
+  <h2>Add user</h2>
+
+  <form th:action="@{/add}" method="post">
+    <input type="text" name="name" placeholder="Name" required>
+    <input type="text" name="lastName" placeholder="Last name" required>
+    <input type="text" name="nationality" placeholder="Nationality" required>
+    <button type="submit">Add</button>
+  </form>
+</div>
+
+
+<div class="form-container">
+  <h2>Edit user</h2>
+
+  <form th:action="@{/edit}" method="post">
+    <input type="number" name="id" placeholder="User ID" required>
+    <input type="text" name="name" placeholder="New name" required>
+    <input type="text" name="lastName" placeholder="New last name" required>
+    <input type="text" name="nationality" placeholder="New nationality" required>
+    <button type="submit">Edit</button>
+  </form>
+</div>
+
+</body>
+</html>
